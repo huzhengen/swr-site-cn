@@ -12,7 +12,7 @@ export default () => (
     <p className="text-lg mb-2 text-gray-600 md:text-xl">用于请求数据的 React Hooks 库</p>
     <div className={styles.features}>
       <Feature
-        text="Lightweight"
+        text="轻量的"
         icon={
           <svg
             viewBox="0 0 24 24"
@@ -31,7 +31,7 @@ export default () => (
         }
       />
       <Feature
-        text="Backend Agnostic"
+        text="后端不可知的"
         icon={
           <svg
             viewBox="0 0 24 24"
@@ -55,7 +55,7 @@ export default () => (
         }
       />
       <Feature
-        text="Realtime"
+        text="实时的"
         icon={
           <svg
             width="24"
@@ -73,7 +73,7 @@ export default () => (
         }
       />
       <Feature
-        text="JAMstack Oriented"
+        text="面向 JAMstack 的"
         icon={
           <svg
             width="24"
@@ -110,7 +110,7 @@ export default () => (
         }
       />
       <Feature
-        text="Remote + Local"
+        text="远程 + 本地"
         icon={
           <svg
             width="24"
