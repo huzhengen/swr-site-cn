@@ -1,6 +1,6 @@
-# Arguments
+# 参数
 
-By default, `key` will be passed to `fetcher` as the argument. So the following 3 expressions are equivalent:
+默认情况下，`key` 将作为参数传递给 `fetcher`。所以下面这3个表达式是等价的：
 
 ```js
 useSWR('/api/user', () => fetcher('/api/user'))
@@ -8,46 +8,43 @@ useSWR('/api/user', url => fetcher(url))
 useSWR('/api/user', fetcher)
 ```
 
-## Multiple Arguments
+## Multiple Arguments(多个参数)
 
-In some scenarios, it's useful pass multiple arguments (can be any value or object) to the `fetcher` function. 
-For example an authorized fetch request:
+在某些场景中，向 `fetcher` 函数传递多个参数（可以是任何值或对象）非常有用。例如授权请求：
 
 ```js
 useSWR('/api/user', url => fetchWithToken(url, token))
 ```
 
-This is **incorrect**. Because the identifier (also the cache key) of the data is `'/api/user'`, 
-so even if `token` changes, SWR will still use the same key and return the wrong data. 
+这是**错误的**。 因为数据的标识符（也是缓存 key）是 `'/api/user'`，所以即使 `token` 变了，SWR 仍然会使用相同的 key 并返回错误的数据。
 
-Instead, you can use an **array** as the `key` parameter, which contains multiple arguments of `fetcher`:
+相反，你可以使用一个**数组**作为参数 `key`，它包含 `fetcher` 的多个参数：
 
 ```js
 const { data: user } = useSWR(['/api/user', token], fetchWithToken)
 ```
 
-The function `fetchWithToken` still accepts the same 2 arguments, but the cache key will also be associated with `token` now.
+`fetchWithToken` 函数仍然接受同样的2个参数，但现在缓存 key 也将与 `token` 相关联。
 
-## Passing Objects
+## Passing Objects(传对象)
 
-Say you have another function that fetches data with a user scope: `fetchWithUser(api, user)`. You can do the following:
+假设你还有另一个使用用户范围来获取数据的函数：`fetchWithUser(api, user)`。你可以执行以下操作
 
 ```js
 const { data: user } = useSWR(['/api/user', token], fetchWithToken)
-// ...and pass it as an argument to another query
+// ...并将其作为参数传递给另一个 query
 const { data: orders } = useSWR(user ? ['/api/orders', user] : null, fetchWithUser)
 ```
 
-The key of the request is now the combination of both values. SWR **shallowly** compares
-the arguments on every render, and triggers revalidation if any of them has changed.  
-Keep in mind that you should not recreate objects when rendering, as they will be treated as different objects on every render:
+现在请求的 key 是两个值的组合。SWR 在每次渲染时**浅**比较参数，如果其中任何一个发生了变化，就会触发重新验证。  
+请记住，在渲染时不应该重新创建对象，因为每次渲染时它们将被视为不同的对象：
 
 ```js
-// Don’t do this! Deps will be changed on every render.
+// 不要这样做！每次渲染时 Deps 都会变化。
 useSWR(['/api/user', { id }], query)
 
-// Instead, you should only pass “stable” values.
+// 相反，你应该只传递“稳定的”值。
 useSWR(['/api/user', id], (url, id) => query(url, { id }))
 ```
 
-Dan Abramov explains dependencies very well in [this blog post](https://overreacted.io/a-complete-guide-to-useeffect/#but-i-cant-put-this-function-inside-an-effect).
+Dan Abramov 在[这篇博客](https://overreacted.io/a-complete-guide-to-useeffect/#but-i-cant-put-this-function-inside-an-effect)中很好地解释了依赖关系。
