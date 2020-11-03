@@ -1,9 +1,9 @@
 import Callout from 'components/callout'
 import Link from 'next/link'
 
-# Error Handling
+# 错误处理
 
-If an error is thrown inside [`fetcher`](/docs/data-fetching), it will be returned as `error` by the hook. 
+如果在 [`fetcher`](/docs/data-fetching) 中抛出错误，hook 会将其作为 `error` 返回。 
 
 ```js
 const fetcher = url => fetch(url).then(r => r.json())
@@ -12,25 +12,23 @@ const fetcher = url => fetch(url).then(r => r.json())
 const { data, error } = useSWR('/api/user', fetcher)
 ```
 
-The `error` object will be defined if the fetch promise is rejected.
+如果 fetch promise 被拒绝，将定义 `error` 对象。
 
-## Status Code and Error Object
+## Status Code and Error Object(状态码和错误对象)
 
-Sometimes we want an API to return an error object alongside the status code. 
-Both of them are useful for the client.
+有时我们希望 API 在返回状态码的同时返回一个错误对象。它们对客户端都是有用的。
 
-We can customize our `fetcher` to return more information. If the status code is not `2xx`, 
-we consider it an error even if it can be parsed as JSON:
+我们可以自定义 `fetcher` 以返回更多信息。如果状态码不是 `2xx`，我们则认为它是一个错误，即使它可以被解析为 JSON：
 
 ```js
 const fetcher = async url => {
   const res = await fetch(url)
 
-  // If the status code is not in the range 200-299,
-  // we still try to parse and throw it.
+  // 如果状态码不在 200-299 的范围内，
+  // 我们仍然尝试解析并抛出它。
   if (!res.ok) {
     const error = new Error('An error occurred while fetching the data.')
-    // Attach extra info to the error object.
+    // 将额外的信息附加到错误对象上。
     error.info = await res.json()
     error.status = res.status
     throw error
@@ -49,53 +47,49 @@ const { data, error } = useSWR('/api/user', fetcher)
 ```
 
 <Callout emoji="💡">
-  Note that <code>data</code> and <code>error</code> can exist at the same time. So the UI can display the existing data,
-  while knowing the upcoming request has failed. 
+  注意：<code>data</code> 和 <code>error</code> 可以同时存在。所以 UI 可以在知道即将到来的请求失败时显示现有数据。 
 </Callout>
 
-[Here](/examples/error-handling) we have an example.
+[这里](/examples/error-handling) 有一个示例。
 
-## Error Retry
+## Error Retry(错误重试)
 
-SWR uses the [exponential backoff algorithm](https://en.wikipedia.org/wiki/Exponential_backoff) to retry the request on error.
-The algorithm allows the app to recover from errors quickly, but not waste resources retrying too often.
+在出现错误时 SWR 使用 [指数退避算法](https://en.wikipedia.org/wiki/Exponential_backoff) 重试请求。该算法允许应用从错误中快速恢复，而不会浪费资源频繁地重试。
 
-You can also override this behavior via the [onErrorRetry](/docs/options#options) option:
+你还可以通过 [onErrorRetry](/docs/options#options) 选项覆盖该 behavior：
 
 ```js
 useSWR('/api/user', fetcher, {
   onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-    // Never retry on 404.
+    // 不在 404 时重试。
     if (error.status === 404) return
 
-    // Never retry for a specific key.
+    // 特定的 key 时不重试。
     if (key === '/api/user') return
 
-    // Only retry up to 10 times.
+    // 最多重试 10 次。
     if (retryCount >= 10) return
 
-    // Retry after 5 seconds.
+    // 5秒后重试。
     setTimeout(() => revalidate({ retryCount: retryCount + 1 }), 5000)
   }
 })
 ```
 
-This callback gives you the flexibility to retry based on various conditions. You can also disable it by setting `shouldRetryOnError: false`.
+这个回调让你可以灵活的根据各种条件重试。你也可以通过设置 `shouldRetryOnError: false` 来禁用它。
 
-It's also possible to provide it via the [Global Configuration](/docs/global-configuration) context.
+也可以通过 [全局配置](/docs/global-configuration) context 来提供它。
 
-## Global Error Report
+## Global Error Report(全局错误报告)
 
-You can always get the `error` object inside the component reactively. 
-But in case you want to handle the error globally, to notify the UI to show a [toast](https://vercel.com/design/toast) or a [snackbar](https://material.io/components/snackbars), or report it somewhere such as [Sentry](https://sentry.io),
-there's an [`onError`](/docs/options#options) event:
+你总是可以响应性的在组件内部获取 `error` 对象。但如果你想要全局处理错误，通知 UI 显示一个 [toast](https://vercel.com/design/toast) 或者一个 [snackbar](https://material.io/components/snackbars)，或在某处报告它，比如 [Sentry](https://sentry.io)，可以用 [`onError`](/docs/options#options) 事件：
 
 ```jsx
 <SWRConfig value={{
   onError: (error, key) => {
     if (error.status !== 403 && error.status !== 404) {
-      // We can send the error to Sentry,
-      // or show a notification UI.
+      // 我们可以把错误发送给 Sentry，
+      // 或显示一个通知 UI。
     }
   }
 }}>
