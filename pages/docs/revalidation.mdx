@@ -2,50 +2,50 @@ import Video from 'components/video'
 import Callout from 'components/callout'
 import Link from 'next/link'
 
-# Automatic Revalidation
+# 自动重新验证
 
 <Callout>
-  If you want to manually revalidate the data, check <Link href="/docs/mutation"><a href="/docs/mutation">mutation</a></Link>.
+  如果你想手动重新验证数据，请查看 <Link href="/docs/mutation"><a href="/docs/mutation">mutation</a></Link>。
 </Callout>
 
-## Revalidate on Focus
+## Revalidate on Focus(聚焦时重新验证)
 
-When you re-focus a page or switch between tabs, SWR automatically revalidates data.
+当你重新聚焦一个页面或在标签页之间切换时，SWR 会自动重新验证数据。
 
-This can be useful to immediately synchronize to the latest state. This is helpful for refreshing data in scenarios like stale mobile tabs, or laptops that **went to sleep**.
+这对于立即同步到最新状态非常有用。对于在 stale mobile tabs 或**休眠**的笔记本电脑等情况下刷新数据也很有帮助。
 
 <Video
   src="https://raw.githubusercontent.com/vercel/swr-site/master/.github/videos/focus-revalidate.mp4"
-  caption="Video: using focus revalidation to automatically sync login state between pages."
+  caption="视频：使用聚焦时重新验证在页面间自动同步登陆状态。"
   ratio={307/768}
 />
 
-This feature is enabled by default. You can disable it via the [`revalidateOnFocus`](/docs/options) option.
+该特性默认是启用的。你可以通过 [`revalidateOnFocus`](/docs/options) 选项禁用它。
 
-## Revalidate on Interval
+## Revalidate on Interval(间隔重新验证)
 
-In many cases, data changes because of multiple devices, multiple users, multiple tabs. How can we over time update the data on screen?
+在很多情况下，数据会因为多个设备、多个用户、多个选项卡而发生改变。那么我们如何随着时间的推移更新屏幕上的数据呢？
 
-SWR will give you the option to automatically refetch data. It’s **smart** which means refetching will only happen if the component associated with the hook is **on screen**.
+SWR 会为你提供自动重新获取数据的选项。这很**智能**，意味着只有与 hook 相关的组件**在屏幕上**时，才会重新获取。
 
 <Video
   src="https://raw.githubusercontent.com/vercel/swr-site/master/.github/videos/refetch-interval.mp4"
-  caption="Video: when a user makes a change, both sessions will eventually render the same data."
+  caption="视频：当用户进行更改时，两个会话最终将呈现相同的数据。"
   ratio={307/768}
 />
 
-You can enable it by setting a [`refreshInterval`](/docs/options) value:
+你可以通过设置 [`refreshInterval`](/docs/options) 值来启用他：
 
 ```js
 useSWR('/api/todos', fetcher, { refreshInterval: 1000 })
 ```
 
-There're also options such as `refreshWhenHidden` and `refreshWhenOffline`. Both are disabled by default so SWR won't fetch when the webpage is not on screen, or there's no network connection.
+还有其他选项，例如 `refreshWhenHidden` 和 `refreshWhenOffline`。这两项默认都是禁用的，所以当网页不在屏幕上或没有网络连接时，SWR 不会 fetch。
 
-## Revalidate on Reconnect
+## Revalidate on Reconnect(重新连接时重新验证)
 
-It's useful to also revalidate when the user is back online. This scenario happens a lot when the user unlocks their computer, but the internet is not yet connected at the same moment.
+当用户重新联机时重新验证非常有用。这种情况经常发生在用户解锁了他们的计算机但网络还没有连上时。
 
-To make sure the data is always up-to-date, SWR automatically revalidates when network recovers.
+为了确保数据始终是最新的，SWR 会在网络恢复时自动重新验证。
 
-This feature is enabled by default. You can disable it via the [`revalidateOnReconnect`](/docs/options) option.
+该特性默认是启用的。你可以通过 [`revalidateOnReconnect`](/docs/options) 选项禁用它。
