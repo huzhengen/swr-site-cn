@@ -1,33 +1,31 @@
-# Conditional Fetching
+# 有条件的 Fetching
 
-## Conditional
+## Conditional(有条件的)
 
-Use `null` or pass a function as `key` to conditionally fetch data. If the function throws or returns a falsy value, SWR will not start the request.
+使用 `null` 或传一个函数作为 `key` 来有条件地获取数据。如果函数抛出错误或返回 falsy 值，SWR 将不会启动请求。
 
 ```js
-// conditionally fetch
+// 有条件的 fetch
 const { data } = useSWR(shouldFetch ? '/api/data' : null, fetcher)
 
-// ...or return a falsy value
+// ...或返回一个 falsy 值
 const { data } = useSWR(() => shouldFetch ? '/api/data' : null, fetcher)
 
-// ... or throw an error when user.id is not defined
+// ... 或在 user.id 未定义时抛出错误
 const { data } = useSWR(() => '/api/data?uid=' + user.id, fetcher)
 ```
 
-## Dependent
+## Dependent(依赖)
 
-SWR also allows you to fetch data that depends on other data. It ensures the maximum possible parallelism (avoiding waterfalls), as well as serial fetching when a piece of dynamic data is required for the next data fetch to happen.
+SWR 还允许获取依赖于其他数据的数据。当需要一段动态数据才能进行下一次数据获取时，它可以确保最大程度的并行性（avoiding waterfalls）以及串行获取。
 
 ```js
 function MyProjects () {
   const { data: user } = useSWR('/api/user')
   const { data: projects } = useSWR(() => '/api/projects?uid=' + user.id)
-  // When passing a function, SWR will use the return
-  // value as `key`. If the function throws or returns
-  // falsy, SWR will know that some dependencies are not
-  // ready. In this case `user.id` throws when `user`
-  // isn't loaded.
+  // 传递函数时，SWR 会用返回值作为 `key`。
+  // 如果函数抛出错误或返回 falsy 值，SWR 会知道某些依赖还没准备好。
+  // 这种情况下，当 `user`未加载时，`user.id` 抛出错误
 
   if (!projects) return 'loading...'
   return 'You have ' + projects.length + ' projects'
