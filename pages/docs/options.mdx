@@ -42,7 +42,7 @@ const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 - `compare(a, b)`: 比较函数，用来检测返回的数据何时已更改，以防止伪造的重新渲染。默认情况下使用 [dequal](https://github.com/lukeed/dequal)。
 
 <Callout emoji="💡">
-  网络较慢 (2G, {'<='} 70Kbps) 时， 默认情况下 <code>errorRetryInterval</code> 是 10s, {' '}
+  网络较慢 (2G, {'<='} 70Kbps) 时， 默认情况下 <code>errorRetryInterval</code> 是 10s， {' '}
   <code>loadingTimeout</code> 是 5s。
 </Callout>
 
