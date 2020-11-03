@@ -1,24 +1,23 @@
 import Callout from 'components/callout'
 import Link from 'next/link'
 
-# Data Fetching
+# 数据获取
 
 ```js
 { data, error } = useSWR(key, fetcher)
 ```
 
-This is the very fundamental API of SWR. The `fetcher` here is an async function that **accepts the `key`** of SWR, and returns the data.
+这是 SWR 的基本 API。这里的 `fetcher` 是一个异步函数，它**接受** SWR 的 **`key`** 并返回数据。
 
-The returned value will be passed as `data`, and if it throws, it will be caught as `error`.
+返回值将作为 `data` 传递，如果抛出错误，将作为  `error` 被捕获。
 
 <Callout emoji="💡">
-  Note that <code>fetcher</code> can be omitted from the parameters if it's{' '}
-  <Link href="/docs/global-configuration"><a href="/docs/global-configuration">provided globally</a></Link>.
+  注意：如果 <code>fetcher</code> 是<Link href="/docs/global-configuration"><a href="/docs/global-configuration">全局配置</a></Link>提供的，可以从参数中忽略。
 </Callout>
 
 ## Fetch
 
-You can use any library to handle data fetching, for example a `fetch` polyfill [developit/unfetch](https://github.com/developit/unfetch):
+你可以使用任何库来处理数据获取，比如一个 `fetch` polyfill [developit/unfetch](https://github.com/developit/unfetch)：
 
 ```js
 import fetch from 'unfetch'
@@ -32,9 +31,9 @@ function App () {
 ```
 
 <Callout emoji="💡">
-  If you are using <strong>Next.js</strong>, you don't need to import this polyfill:
+  如果你使用的是 <strong>Next.js</strong>，你不需要 import 这个 polyfill：
   <br/>
-  <a target="_blank" rel="noopener" href="https://nextjs.org/blog/next-9-1-7#new-built-in-polyfills-fetch-url-and-objectassign">New Built-In Polyfills: fetch(), URL, and Object.assign</a>
+  <a target="_blank" rel="noopener" href="https://nextjs.org/blog/next-9-1-7#new-built-in-polyfills-fetch-url-and-objectassign">新的内置 Polyfills： fetch()、URL、和Object.assign</a>
 </Callout>
 
 ## Axios
@@ -52,7 +51,7 @@ function App () {
 
 ## GraphQL
 
-Or using GraphQL with libs like [graphql-request](https://github.com/prisma-labs/graphql-request):
+或者配合类似 [graphql-request](https://github.com/prisma-labs/graphql-request) 的库使用 GraphQL：
 ```js
 import { request } from 'graphql-request'
 
@@ -74,4 +73,4 @@ function App () {
 }
 ```
 
-_If you want to pass variables to a GraphQL query, check out [Multiple Arguments](/docs/arguments)._
+_如果要把变量传递给 GraphQL query，请查看[多个参数](/docs/arguments)。_

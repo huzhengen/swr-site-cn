@@ -1,6 +1,6 @@
-# Global Configuration
+# 全局配置
 
-The context `SWRConfig` can provide global configurations ([options](/docs/options)) for all SWR hooks.
+The context `SWRConfig` 可以为所有的 SWR hooks 提供全局配置 ([options](/docs/options))。
 
 ```jsx
 <SWRConfig value={options}>
@@ -8,7 +8,7 @@ The context `SWRConfig` can provide global configurations ([options](/docs/optio
 </SWRConfig>
 ```
 
-In this example, all SWR hooks will use the same fetcher provided to load JSON data, and refresh every 3 seconds by default:
+在该示例中，所有的 SWR hooks 都将使用提供的相同的 fetcher 来加载 JSON 数据，默认每3秒刷新一次：
 
 ```jsx
 import useSWR, { SWRConfig } from 'swr'
