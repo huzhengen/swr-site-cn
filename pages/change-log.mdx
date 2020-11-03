@@ -12,13 +12,13 @@ export const ReleasesRenderer = () => {
   const releases = useSSG()
   return <Markdown>{releases.map(release => {
     return `## <a href="${release.html_url}" target="_blank" rel="noopener">${release.tag_name}</a>\n    
-Published on ${new Date(release.published_at) .toDateString()}.\n
+发布于 ${new Date(release.published_at) .toDateString()}.\n
 ${release.body}`
   }).join('\n\n')}</Markdown>
 }
 
-# Change Log
+# 更新日志
 
-Please visit the [SWR release page](https://github.com/vercel/swr/releases) for all history releases.
+请访问 [SWR release page](https://github.com/vercel/swr/releases) 获取所有的版本。
 
 <ReleasesRenderer/>
