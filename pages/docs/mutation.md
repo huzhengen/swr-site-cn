@@ -1,12 +1,10 @@
 # Mutation
 
-## Revalidate
+## Revalidate(重新验证)
 
-You can broadcast a revalidation message globally to all SWRs with the same key by calling
-`mutate(key)`.
+你可以通过调用 `mutate(key)` 全局的向所有具有相同 key 的 SWR 广播重新验证消息。
 
-This example shows how to automatically refetch the login info (e.g.: inside `<Profile/>`)
-when the user clicks the “Logout” button.
+该示例显示了当用户点击“注销”按钮时如何自动重新获取登录信息（例如：在 `<Profile/>` 内）。
 
 ```jsx
 import useSWR, { mutate } from 'swr'
@@ -16,10 +14,10 @@ function App () {
     <div>
       <Profile />
       <button onClick={() => {
-        // set the cookie as expired
+        // 将 cookie 设置为过期
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 
-        // tell all SWRs with this key to revalidate
+        // 告诉所有具有该 key 的 SWR 重新验证
         mutate('/api/user')
       }}>
         Logout
@@ -31,11 +29,9 @@ function App () {
 
 ## Mutation and POST Request
 
-In many cases, applying local mutations to data is a good way to make changes
-feel faster — no need to wait for the remote source of data.
+在很多情况中，对数据应用本地 mutation 是一种让更改感觉更快的好办法 - 无需等待远程数据源。
 
-With `mutate`, you can update your local data programmatically, while
-revalidating and finally replace it with the latest data.
+使用 `mutate`，你可以以编程方式更新本地数据，同时重新验证并最终将其替换为最新数据。
 
 ```jsx
 import useSWR, { mutate } from 'swr'
@@ -49,13 +45,13 @@ function Profile () {
       <button onClick={async () => {
         const newName = data.name.toUpperCase()
         
-        // update the local data immediately, but disable the revalidation
+        // 立即更新本地数据，但禁用重新验证
         mutate('/api/user', { ...data, name: newName }, false)
         
-        // send a request to the API to update the source
+        // 向 API 发送请求更新源
         await requestUpdateUsername(newName)
         
-        // trigger a revalidation (refetch) to make sure our local data is correct
+        // 触发重新验证（重新获取）以确保本地数据是正确的
         mutate('/api/user')
       }}>Uppercase my name!</button>
     </div>
@@ -63,23 +59,22 @@ function Profile () {
 }
 ```
 
-Clicking the button in the example above will send a POST request to modify the remote data, locally update the client data and
-try to fetch the latest one (revalidate).
+点击上面示例中的按钮将发送一个 POST 请求来修改远程数据，本地更新客户端数据并尝试获取最新的数据（重新验证）。
 
-But many POST APIs will just return the updated data directly, so we don’t need to revalidate again.
-Here’s an example showing the “local mutate - request - update” usage:
+但是很多 POST API 只会直接返回更新后的数据，所以我们不需要再次重新验证。
+下面这个示例展示了 “本地更改 - 请求 - 更新”的用法：
 
 ```jsx
-mutate('/api/user', newUser, false)      // use `false` to mutate without revalidation
-mutate('/api/user', updateUser(newUser)) // `updateUser` is a Promise of the request,
-                                         // which returns the updated document
+mutate('/api/user', newUser, false)      // 使用 `false` 进行 mutate 无需重新验证
+mutate('/api/user', updateUser(newUser)) // `updateUser` 是请求的 Promise，
+                                         // 返回 updated document
 ```
 
-## Mutate Based on Current Data
+## Mutate Based on Current Data(根据当前数据更改)
 
-In many cases, you are receiving a single value back from your API and want to update a list of them.
+在很多情况下，你从 API 接收了单个值，然后希望更新它们的列表。
 
-With `mutate`, you can pass an async function which will receive the current cached value, if any, and let you return an updated document.
+使用 `mutate`，你可以传递一个异步函数，该函数将接收当前缓存的值（如果有的话），并返回一个 updated document。
 
 ```jsx
 mutate('/api/users', async users => {
@@ -90,23 +85,23 @@ mutate('/api/users', async users => {
 
 ## Returned Data from Mutate
 
-Most probably, you need some data to update the cache. The data is resolved or returned from the promise or async function you passed to `mutate`.
+最有可能的是，你需要一些数据来更新缓存。这些数据是从你传递给 `mutate` 的 promise 或 异步函数解析或返回的。
 
-The function will return an updated document to let `mutate` update the corresponding cache value. It could throw an error somehow, every time when you call it.
+该函数将返回一个 updated document，让 `mutate` 更新相应的缓存值。每次调用它时，都可能以某种方式抛出错误。
 
 ```jsx
 try {
   const user = await mutate('/api/user', updateUser(newUser))
 } catch (error) {
-  // Handle an error while updating the user here
+  // 在这里处理更新 user 时的错误
 }
 ```
 
 ## Bound Mutate
 
-The SWR object returned by `useSWR` also contains a `mutate()` function that is pre-bound to the SWR's key.
+`useSWR` 返回的 SWR 对象还包含一个 `mutate()` 函数，该函数预先绑定到 SWR 的 key。
 
-It is functionally equivalent to the global `mutate` function but does not require the `key` parameter.
+它在功能上等同于全局 `mutate` 函数，但不需要 `key` 参数。
 
 ```jsx
 import useSWR from 'swr'
@@ -119,10 +114,10 @@ function Profile () {
       <h1>My name is {data.name}.</h1>
       <button onClick={async () => {
         const newName = data.name.toUpperCase()
-        // send a request to the API to update the data
+        // 向 API 发送请求以更新数据
         await requestUpdateUsername(newName)
-        // update the local data immediately and revalidate (refetch)
-        // NOTE: key is not required when using useSWR's mutate as it's pre-bound
+        // 立即更新本地数据并重新验证 (重新获取)
+        // 注意：在使用 useSWR 的 mutate 时，key 是不需要的， 因为它是预先绑定的
         mutate({ ...data, name: newName })
       }}>Uppercase my name!</button>
     </div>
