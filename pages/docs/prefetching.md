@@ -1,23 +1,23 @@
-# Prefetching Data
+# 预获取数据
 
-There’re many ways to prefetch the data for SWR. For top level requests, [`rel="preload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content) is highly recommended:
+有很多方法可以为 SWR 预获取数据。对于顶级请求，强烈推荐 [`rel="preload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content)：
 
 ```html
 <link rel="preload" href="/api/data" as="fetch" crossorigin="anonymous">
 ```
 
-This will prefetch the data before the JavaScript starts downloading. And your incoming fetch requests will reuse the result (including SWR, of course).
+这将在 JavaScript 开始下载之前预获取数据。而且你传入的获取请求将重用结果(当然包括 SWR)。
 
-Another choice is to prefetch the data conditionally. You can have a function to refetch and set the cache via [mutate](/docs/mutation):
+另一个选择是有条件地预获取数据。你可以通过 [mutate](/docs/mutation) 来重新获取以及设置缓存：
 
 ```js
 function prefetch () {
   mutate('/api/data', fetch('/api/data').then(res => res.json()))
-  // the second parameter is a Promise
-  // SWR will use the result when it resolves
+  // 第二个参数是个 Promise
+  // SWR 将在解析时使用结果
 }
 ```
 
-Then use it when you need to preload the **resources** (for example when [hovering](https://github.com/GoogleChromeLabs/quicklink) [a](https://github.com/guess-js/guess) [link](https://instant.page)).  
+然后在需要预加载**资源**时使用它（比如当 [hovering](https://github.com/GoogleChromeLabs/quicklink) [a](https://github.com/guess-js/guess) [link](https://instant.page) 时）。  
 
-Together with techniques like [page prefetching](https://nextjs.org/docs#prefetching-pages) in Next.js, you will be able to load both next page and data instantly.
+结合 Next.js 的 [page prefetching](https://nextjs.org/docs#prefetching-pages)，你将能立即加载下一页和数据。
