@@ -117,7 +117,7 @@ function Profile () {
         // 向 API 发送请求以更新数据
         await requestUpdateUsername(newName)
         // 立即更新本地数据并重新验证 (重新获取)
-        // 注意：在使用 useSWR 的 mutate 时，key 是不需要的， 因为它是预先绑定的
+        // 注意：在使用 useSWR 的 mutate 时，key 是不需要的，因为它是预先绑定的
         mutate({ ...data, name: newName })
       }}>Uppercase my name!</button>
     </div>
