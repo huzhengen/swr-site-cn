@@ -3,16 +3,16 @@ import Callout from 'components/callout'
 # Suspense
 
 <Callout emoji="🚨" background="bg-red-200">
-  Suspense is current an <strong>experimental</strong> feature of React. These APIs may change significantly and without a warning before they become a part of React.
+  目前 Suspense 是 React 的一个 <strong>实验</strong> 特性。这些 API 可能会有重大改变，并且在成为 React 一部分之前不会有任何警告。
   <br/>
-  <a href="https://reactjs.org/docs/concurrent-mode-suspense.html" target="_blank" rel="noopener">More information</a>
+  <a href="https://reactjs.org/docs/concurrent-mode-suspense.html" target="_blank" rel="noopener">了解更多</a>
 </Callout>
 
 <Callout>
-  Note that React Suspense is not yet supported in SSR mode.
+  注意：SSR 模式 还不支持 React Suspense。
 </Callout>
 
-You can enable the `suspense` option to use SWR with React Suspense:
+你可以启用 `suspense` 选项，从而让 SWR 和 React Suspense 一起使用：
 
 ```jsx
 import { Suspense } from 'react'
@@ -32,8 +32,7 @@ function App () {
 }
 ```
 
-In Suspense mode, `data` is always the fetch response (so you don't need to check if it's `undefined`).
-But if an error occurred, you need to use an [error boundary](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors) to catch it:
+在 Suspense 模式下，`data` 总是获取响应（因此你无需检查它是否是 `undefined`）。但如果发生错误，则需要使用 [错误边界](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors) 来捕获它：
 
 ```jsx
 <ErrorBoundary fallback={<h2>Could not fetch posts.</h2>}>
@@ -45,28 +44,28 @@ But if an error occurred, you need to use an [error boundary](https://reactjs.or
 
 ---
 
-### Note: With Conditional Fetching
+### 注意：使用条件获取
 
-Normally, when you enabled `suspense` it's guaranteed that `data` will always be ready on render:
+通常，当启用 `suspense` 时，可以确保 `data` 在渲染时始终是准备就绪的：
 
 ```jsx
 function Profile () {
   const { data } = useSWR('/api/user', fetcher, { suspense: true })
 
-  // `data` will never be `undefined`
+  // `data` 永远不会是 `undefined`
   // ...
 }
 ```
 
-However, when using it together with conditional fetching or dependent fetching, `data` will be `undefined` if the request is **paused**:
+但是，当它与条件获取或依赖获取一起使用时，如果请求被**暂停**，`data` 将会是 `undefined`：
 
 ```jsx
 function Profile () {
   const { data } = useSWR(isReady ? '/api/user' : null, fetcher, { suspense: true })
 
-  // `data` will be `undefined` if `isReady` is false
+  // 如果 `isReady` 是 false，`data` 将会是 `undefined`
   // ...
 }
 ```
 
-If you want to read more technical details about this restriction, check [the discussion here](https://github.com/vercel/swr/pull/357#issuecomment-627089889).
+如果你想阅读有关该限制的更多技术细节，请查看[这里的讨论](https://github.com/vercel/swr/pull/357#issuecomment-627089889)。
