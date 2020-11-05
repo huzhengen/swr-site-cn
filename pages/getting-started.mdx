@@ -127,7 +127,7 @@ function Avatar ({ id }) {
 function Page () {
   const [user, setUser] = useState(null)
 
-  // 请求取数据
+  // 请求数据
   useEffect(() => {
     fetch('/api/user')
       .then(res => res.json())
@@ -203,4 +203,4 @@ function Avatar () {
 
 最美妙的是只有**1个请求**发送到 API，因为它们使用相同的 SWR key，并且请求自动**重复数据删除**、**缓存**和**共享**。
 
-而且，应用现在能够在 [用户聚焦或网络重连](/docs/revalidation) 时重新请求数据！ 这意味着当用户的笔记本电脑从睡眠状态唤醒或用户在切换浏览器标签页时，数据将自动刷新。
+而且，应用现在能够在[用户聚焦或网络重连](/docs/revalidation)时重新请求数据！这意味着当用户的笔记本电脑从睡眠状态唤醒或用户在切换浏览器标签页时，数据将自动刷新。

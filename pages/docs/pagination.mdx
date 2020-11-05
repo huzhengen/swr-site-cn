@@ -192,7 +192,7 @@ const { data, error, isValidating, mutate, size, setSize } = useSWRInfinite(
 )
 ```
 
-和 `useSWR` 类似，这个新的 Hook 接受一个函数，该函数返回请求的key、1个 fetcher 函数和 options。它返回 `useSWR` 的所有返回值，还包括2个额外的值：page size 和 page size setter，类似一个 React state。
+和 `useSWR` 类似，这个新的 Hook 接受一个函数，该函数返回请求的 key、1个 fetcher 函数和 options。它返回 `useSWR` 的所有返回值，还包括2个额外的值：page size 和 page size setter，类似一个 React state。
 
 在无限加载中，一个_页面_是一个请求，我们的目标是请求多页面并渲染它们。
 
