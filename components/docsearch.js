@@ -39,7 +39,7 @@ export default function () {
       id="algolia-doc-search"
       className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
       type="search"
-      placeholder='Search ("/" to focus)'
+      placeholder='搜索 ("/" to focus)'
       ref={input}
     />
   </div>
