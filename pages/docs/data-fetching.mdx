@@ -1,7 +1,7 @@
 import Callout from 'components/callout'
 import Link from 'next/link'
 
-# 数据获取
+# 数据请求
 
 ```js
 { data, error } = useSWR(key, fetcher)
@@ -17,7 +17,7 @@ import Link from 'next/link'
 
 ## Fetch
 
-你可以使用任何库来处理数据获取，比如一个 `fetch` polyfill [developit/unfetch](https://github.com/developit/unfetch)：
+你可以使用任何库来处理数据请求，比如一个 `fetch` polyfill [developit/unfetch](https://github.com/developit/unfetch)：
 
 ```js
 import fetch from 'unfetch'
@@ -31,7 +31,7 @@ function App () {
 ```
 
 <Callout emoji="💡">
-  如果你使用的是 <strong>Next.js</strong>，你不需要 import 这个 polyfill：
+  如果你使用的是 <strong>Next.js</strong>，则不需要 import 这个 polyfill：
   <br/>
   <a target="_blank" rel="noopener" href="https://nextjs.org/blog/next-9-1-7#new-built-in-polyfills-fetch-url-and-objectassign">新的内置 Polyfills： fetch()、URL、和Object.assign</a>
 </Callout>

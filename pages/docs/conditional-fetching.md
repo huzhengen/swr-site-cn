@@ -1,11 +1,11 @@
-# 有条件的 Fetching
+# 有条件的请求
 
 ## Conditional(有条件的)
 
-使用 `null` 或传一个函数作为 `key` 来有条件地获取数据。如果函数抛出错误或返回 falsy 值，SWR 将不会启动请求。
+使用 `null` 或传一个函数作为 `key` 来有条件地请求数据。如果函数抛出错误或返回 falsy 值，SWR 将不会启动请求。
 
 ```js
-// 有条件的 fetch
+// 有条件的请求
 const { data } = useSWR(shouldFetch ? '/api/data' : null, fetcher)
 
 // ...或返回一个 falsy 值
@@ -17,7 +17,7 @@ const { data } = useSWR(() => '/api/data?uid=' + user.id, fetcher)
 
 ## Dependent(依赖)
 
-SWR 还允许获取依赖于其他数据的数据。当需要一段动态数据才能进行下一次数据获取时，它可以确保最大程度的并行性（avoiding waterfalls）以及串行获取。
+SWR 还允许请求依赖于其他数据的数据。当需要一段动态数据才能进行下一次数据请求时，它可以确保最大程度的并行性（avoiding waterfalls）以及串行请求。
 
 ```js
 function MyProjects () {

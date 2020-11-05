@@ -5,7 +5,7 @@ import Features from 'components/features'
 
 <Features/>
 
-“SWR” 这个名字来自于 `stale-while-revalidate`。一种由 [HTTP RFC 5861](https://tools.ietf.org/html/rfc5861) 推广的 HTTP 缓存失效策略。SWR 是一种策略，它首先从缓存中返回数据（过期的），然后发送 fetch 请求（重新验证），最后获取到最新的数据。
+“SWR” 这个名字来自于 `stale-while-revalidate`。一种由 [HTTP RFC 5861](https://tools.ietf.org/html/rfc5861) 推广的 HTTP 缓存失效策略。SWR 是一种策略，它首先从缓存中返回数据（过期的），然后发送 fetch 请求（重新验证），最后得到最新数据。
 
 <Callout emoji="✅">
   使用 SWR，组件将<strong>不断的</strong><strong>自动</strong>获得数据更新流。
@@ -33,23 +33,23 @@ function Profile() {
 
 ## 特性
 
-仅需一行代码，你就可以简化项目中数据获取的逻辑，并立即拥有以下这些不可思议的特性：
+仅需一行代码，你就可以简化项目中数据请求的逻辑，并立即拥有以下这些不可思议的特性：
 
 - 面向 **JAMstack**
-- **极速**、**轻量**和**可重用的**数据获取
+- **极速**、**轻量**和**可重用的**数据请求
 - 内置**缓存**和重复数据删除请求
 - **实时**体验
 - 传输和协议不可知
 - TypeScript ready
 - React Native
 
-SWR涵盖了速度，正确性和稳定性的各个方面，以帮你建立更好的体验：
+SWR 涵盖了速度，正确性和稳定性的各个方面，以帮你建立更好的体验：
 - 快速页面导航
 - 间隔轮询
 - 数据依赖
-- Revalidation on focus
-- Revalidation on network recovery
-- Local mutation (Optimistic UI)
+- 聚焦时重新验证
+- 网络恢复时重新验证
+- 本地更改 (Optimistic UI)
 - 智能错误重试
 - 分页和滚动位置恢复
 - React Suspense

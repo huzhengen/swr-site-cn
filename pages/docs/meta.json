@@ -1,14 +1,14 @@
 {
   "options": "选项",
   "global-configuration": "全局配置",
-  "data-fetching": "数据获取",
+  "data-fetching": "数据请求",
   "error-handling": "错误处理",
   "revalidation": "自动重新验证",
-  "conditional-fetching": "条件数据获取",
+  "conditional-fetching": "条件数据请求",
   "arguments": "参数",
   "mutation": "Mutation",
   "pagination": "分页",
-  "prefetching": "预获取",
-  "with-nextjs": "与 Next.js 结合使用",
+  "prefetching": "预请求",
+  "with-nextjs": "配合 Next.js 使用",
   "suspense": "Suspense"
 }

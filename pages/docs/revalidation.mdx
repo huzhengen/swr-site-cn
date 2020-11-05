@@ -26,7 +26,7 @@ import Link from 'next/link'
 
 在很多情况下，数据会因为多个设备、多个用户、多个选项卡而发生改变。那么我们如何随着时间的推移更新屏幕上的数据呢？
 
-SWR 会为你提供自动重新获取数据的选项。这很**智能**，意味着只有与 hook 相关的组件**在屏幕上**时，才会重新获取。
+SWR 会为你提供自动重新请求数据的选项。这很**智能**，意味着只有与 hook 相关的组件**在屏幕上**时，才会重新请求。
 
 <Video
   src="https://raw.githubusercontent.com/vercel/swr-site/master/.github/videos/refetch-interval.mp4"
@@ -40,7 +40,7 @@ SWR 会为你提供自动重新获取数据的选项。这很**智能**，意味
 useSWR('/api/todos', fetcher, { refreshInterval: 1000 })
 ```
 
-还有其他选项，例如 `refreshWhenHidden` 和 `refreshWhenOffline`。这两项默认都是禁用的，所以当网页不在屏幕上或没有网络连接时，SWR 不会 fetch。
+还有其他选项，例如 `refreshWhenHidden` 和 `refreshWhenOffline`。这两项默认都是禁用的，所以当网页不在屏幕上或没有网络连接时，SWR 不会请求。
 
 ## Revalidate on Reconnect(重新连接时重新验证)
 

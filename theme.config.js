@@ -54,11 +54,11 @@ export default {
     <meta httpEquiv="Content-Language" content="zh-hans" />
     <meta
       name="description"
-      content="SWR 是一个用于数据请求的 React Hooks 库。SWR 首先从缓存（过期的）中返回数据，然后发送 fetch 请求（重新验证），最后再次提供最新数据。"
+      content="SWR 是一个用于数据请求的 React Hooks 库。SWR 首先从缓存（过期的）中返回数据，然后发送 fetch 请求（重新验证），最后得到最新数据。"
     />
     <meta
       name="og:description"
-      content="SWR 是一个用于数据请求的 React Hooks 库。SWR 首先从缓存（过期的）中返回数据，然后发送 fetch 请求（重新验证），最后再次提供最新数据。"
+      content="SWR 是一个用于数据请求的 React Hooks 库。SWR 首先从缓存（过期的）中返回数据，然后发送 fetch 请求（重新验证），最后得到最新数据。"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@vercel" />
@@ -78,7 +78,7 @@ export default {
     <meta name="apple-mobile-web-app-title" content="SWR" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" media="print" onload="this.media='all'" />
   </>,
-  footerText: <a href="https://vercel.com/?utm_source=swr" target="_blank" rel="noopener" className="inline-flex items-center no-underline text-black font-semibold">
+  footerText: <a href="https://vercel.com/?utm_source=swr-cn" target="_blank" rel="noopener" className="inline-flex items-center no-underline text-black font-semibold">
     <span className="mr-1">Powered by</span><span><Vercel/></span>
   </a>
 }

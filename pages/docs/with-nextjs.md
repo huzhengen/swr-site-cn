@@ -1,15 +1,15 @@
 import Callout from 'components/callout'
 
-# 与 Next.js 结合使用
+# 配合 Next.js 使用
 
-## Client Side Data Fetching(客户端数据获取)
+## Client Side Data Fetching(客户端数据请求)
 
 如果你的页面包含频繁更新的数据，并且你不需要预渲染数据，那么 SWR 是一个完美选择，而且不需要特别配置：只需要 import `useSWR` 并在使用该数据的任意组件中使用 hook 即可。
 
 工作原理：
 
 - 首先，立即显示没有数据的页面。可以显示丢失数据的加载状态。
-- 然后，在客户端获取数据并在准备就绪时显示它。
+- 然后，在客户端请求数据并在准备就绪时显示它。
 
 这种方法适用于 user dashboard pages。因为 dashboard 是一个私有的、特定于用户的页面，与 SEO 无关，页面也不需要预渲染。数据经常更新，这需要 request-time data fetching。
 
@@ -18,9 +18,9 @@ import Callout from 'components/callout'
 如果页面必须预渲染，Next.js 支持 [2种形式的预渲染](https://nextjs.org/docs/basic-features/data-fetching)：  
 **Static Generation (SSG)** 和 **Server-side Rendering (SSR)**。
 
-用 SWR，你可以为了 SEO 预渲染页面，并且还有诸如缓存、重新验证、聚焦跟踪、在客户端间隔重新获取等功能。
+用 SWR，你可以为了 SEO 预渲染页面，并且还有诸如缓存、重新验证、聚焦跟踪、在客户端间隔重新请求等功能。
 
-你可以将预获取的数据作为初始值传递给 `initialData` 选项。比如和 [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation) 一起：
+你可以将预请求的数据作为初始值传递给 `initialData` 选项。比如和 [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation) 一起：
 
 ```jsx
 export async function getStaticProps() {

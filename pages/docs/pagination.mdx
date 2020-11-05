@@ -57,7 +57,7 @@ function App () {
 }
 ```
 
-此外，我们可以为这个 "page component" 创建一个抽象：
+此外，我们可以为这个 "page 组件" 创建一个抽象：
 
 ```jsx highlight=13
 function Page ({ index }) {
@@ -79,7 +79,7 @@ function App () {
 }
 ```
 
-SWR 的缓存会让我们在预先加载下一页方面受益匪浅。我们在一个 hidden 的 div 中渲染下一页，所以 SWR 将触发对下一页的数据获取。当用户导航到下一页时，数据已经在那里了：
+SWR 的缓存会让我们在预先加载下一页方面受益匪浅。我们在一个 hidden 的 div 中渲染下一页，所以 SWR 将触发对下一页的数据请求。当用户导航到下一页时，数据已经加载好了：
 
 ```jsx highlight=6
 function App () {
@@ -159,7 +159,7 @@ function App () {
 
 但是，在某些高级用例中，上面的解决方案并不起作用。
 
-比如，我们仍然实现相同的 "Load More" UI，但还需要显示一个 item 总数的数字。我们不能再使用 `<Page />` 这个解决方案，因为顶级 UI (`<App />`) 需要每个页面的数据：
+比如，我们仍然实现相同的 "Load More" UI，但还需要显示一个 item 总数的数字。我们不能再使用 `<Page />` 这个解决方案了，因为顶级 UI (`<App />`) 需要每个页面的数据：
 
 ```jsx highlight=10
 function App () {
@@ -178,7 +178,7 @@ function App () {
 }
 ```
 
-另外，如果分页 API 是 **cursor based**，那么这个解决方案也不起作用。因为每个页面都需要上一页的数据，它们不是孤立的。
+另外，如果分页 API 是 **基于游标的**，那么这个解决方案也不起作用。因为每个页面都需要上一页的数据，它们不是孤立的。
 
 这就是这个新 `useSWRInfinite` Hook 的作用。
 
@@ -192,9 +192,9 @@ const { data, error, isValidating, mutate, size, setSize } = useSWRInfinite(
 )
 ```
 
-和 `useSWR` 类似，这个新的 Hook 接受一个函数，该函数返回 request key、一个 fetcher 函数和 options。它返回 `useSWR` 的所有返回值，还包括2个额外的值：page size 和 page size setter，像一个 React state。
+和 `useSWR` 类似，这个新的 Hook 接受一个函数，该函数返回请求的key、1个 fetcher 函数和 options。它返回 `useSWR` 的所有返回值，还包括2个额外的值：page size 和 page size setter，类似一个 React state。
 
-在无限加载中，一个_页面_是一个请求，我们的目标是获取多页面并渲染它们。
+在无限加载中，一个_页面_是一个请求，我们的目标是请求多页面并渲染它们。
 
 ### API
 
@@ -202,21 +202,21 @@ const { data, error, isValidating, mutate, size, setSize } = useSWRInfinite(
 
 - `getKey`: 一个函数，接受索引和上一页数据，返回页面的 key
 - `fetcher`: 和 `useSWR` 的 [fetcher 函数](/docs/data-fetching)一样
-- `options`: 接受 `useSWR` 支持的所有 option，以及3个额外 option:
+- `options`: 接受 `useSWR` 支持的所有选项，以及3个额外选项：
   - `initialSize = 1`: 最初应加载的页面数量
   - `revalidateAll = false`: 始终尝试重新验证所有页面
   - `persistSize = false`: 当第一页的 key 发生变化时，不将 page size（或者 `initialSize` 如果设置了该参数）重置为1
 
 #### 返回值
 
-- `data`: 一个数组，每个页面获取的响应值
+- `data`: 一个数组，每个页面请求的响应值
 - `mutate`: 和 `useSWR` 的绑定 mutate 函数一样，但是操作 data 数组
-- `size`: _即将_获取和返回的页面数
-- `setSize`: 设置需要获取的页面数
+- `size`: _即将_请求和返回的页面数
+- `setSize`: 设置需要请求的页面数
 
-### 示例1: Index Based Paginated API
+### 示例1：基于索引的分页 API
 
-For normal index based APIs:
+普通的基于索引的 API：
 
 ```
 GET /users?page=0&limit=10
@@ -229,9 +229,9 @@ GET /users?page=0&limit=10
 ```
 
 ```jsx highlight=4,5,6,7,10
-// 一个函数，获取每个页面的 key，
+// 一个函数，拿到每个页面的 key，
 // `fetcher` 接受它的返回值。
-// 如果返回是 `null`，该页面的请求不会 start。
+// 如果返回是 `null`，该页面不会开始请求。
 const getKey = (pageIndex, previousPageData) => {
   if (previousPageData && !previousPageData.length) return null // reached the end
   return `/users?page=${pageIndex}&limit=10`                    // SWR key
@@ -258,7 +258,7 @@ function App () {
 }
 ```
 
-`getKey` 函数是 `useSWRInfinite` 和 `useSWR` 之间的主要区别。它接受当前页的索引以及上一页的数据。因此可以很好地支持 index based 和 cursor based 的分页 API。
+`getKey` 函数是 `useSWRInfinite` 和 `useSWR` 之间的主要区别。它接受当前页的索引以及上一页的数据。因此可以很好地支持基于索引和基于游标的分页 API。
 
 此外，`data` 不再只是一个 API 响应。它是多个 API 响应的数组：
 
@@ -281,9 +281,9 @@ function App () {
 ]
 ```
 
-### 示例2: Cursor or Offset Based Paginated API
+### 示例2：基于游标或偏移的分页 API
 
-假设现在 API 需要一个 cursor，并将下一个 cursor 和数据一起返回：
+假设现在 API 需要一个游标，并将下一个游标和数据一起返回：
 
 ```
 GET /users?cursor=123&limit=10
@@ -298,7 +298,7 @@ GET /users?cursor=123&limit=10
 }
 ```
 
-我们可以将 `getKey` 函数更改为下面这样：
+我们可以将 `getKey` 函数改为下面这样：
 
 ```jsx
 const getKey = (pageIndex, previousPageData) => {
@@ -308,14 +308,14 @@ const getKey = (pageIndex, previousPageData) => {
   // 首页，没有 `previousPageData`
   if (pageIndex === 0) return `/users?limit=10`
 
-  // 将 cursor 添加到 API
+  // 将游标添加到 API
   return `/users?cursor=${previousPageData.nextCursor}&limit=10`
 }
 ```
 
 ### 高级特性
 
-[这有一个示例](/examples/infinite-loading)演示如何使用 `useSWRInfinite` 实现以下功能：
+[这里有一个示例](/examples/infinite-loading)演示如何使用 `useSWRInfinite` 实现以下功能：
 
 - 加载状态
 - 如果为空，显示一个特殊的 UI

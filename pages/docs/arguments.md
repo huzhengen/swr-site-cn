@@ -28,7 +28,7 @@ const { data: user } = useSWR(['/api/user', token], fetchWithToken)
 
 ## Passing Objects(传对象)
 
-假设你还有另一个使用用户范围来获取数据的函数：`fetchWithUser(api, user)`。你可以执行以下操作
+假设你还有另一个使用用户范围来请求数据的函数：`fetchWithUser(api, user)`。你可以执行以下操作：
 
 ```js
 const { data: user } = useSWR(['/api/user', token], fetchWithToken)
