@@ -12,13 +12,13 @@ const Vercel = ({ height = 20 }) => (
 
 export default {
   github: 'https://github.com/vercel/swr',
-  siteGithub: 'https://github.com/vercel/swr-site',
+  siteGithub: 'https://github.com/huzhengen/swr-site',
   titleSuffix: ' – SWR',
   customSearch: <DocSearch/>,
   logo: <>
     <Logo height={18}/>
     <span className="mx-2 font-extrabold hidden md:inline">SWR</span>
-    <span className="text-gray-600 font-normal hidden md:inline whitespace-no-wrap">React Hooks for data fetching</span>
+    <span className="text-gray-600 font-normal hidden md:inline whitespace-no-wrap">用于数据请求的 React Hooks</span>
   </>,
   head: <>
     {/* Favicons, meta */}
@@ -51,14 +51,14 @@ export default {
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <meta httpEquiv="Content-Language" content="en" />
+    <meta httpEquiv="Content-Language" content="zh-hans" />
     <meta
       name="description"
-      content="SWR is a React Hooks library for data fetching. SWR first returns the data from cache (stale), then sends the fetch request (revalidate), and finally comes with the up-to-date data again."
+      content="SWR 是一个用于数据请求的 React Hooks 库。SWR 首先从缓存（过期的）中返回数据，然后发送 fetch 请求（重新验证），最后再次提供最新数据。"
     />
     <meta
       name="og:description"
-      content="SWR is a React Hooks library for data fetching. SWR first returns the data from cache (stale), then sends the fetch request (revalidate), and finally comes with the up-to-date data again."
+      content="SWR 是一个用于数据请求的 React Hooks 库。SWR 首先从缓存（过期的）中返回数据，然后发送 fetch 请求（重新验证），最后再次提供最新数据。"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@vercel" />
@@ -68,7 +68,7 @@ export default {
     />
     <meta
       name="og:title"
-      content="SWR: React Hooks for Data Fetching"
+      content="SWR：用于数据请求的 React Hooks"
     />
     <meta name="og:url" content="https://swr.vercel.com" />
     <meta
