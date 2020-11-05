@@ -1,47 +1,45 @@
 import Callout from 'components/callout'
 
-# Usage with Next.js
+# 与 Next.js 结合使用
 
-## Client Side Data Fetching
+## Client Side Data Fetching(客户端数据获取)
 
-If your page contains frequently updating data, and you don’t need to pre-render the data, SWR is a perfect fit and no special setup needed: just import `useSWR` and use the hook inside any components that use the data.
+如果你的页面包含频繁更新的数据，并且你不需要预渲染数据，那么 SWR 是一个完美选择，而且不需要特别配置：只需要 import `useSWR` 并在使用该数据的任意组件中使用 hook 即可。
 
-Here’s how it works:
+工作原理：
 
-- First, immediately show the page without data. You can show loading states for missing data.
-- Then, fetch the data on the client side and display it when ready.
+- 首先，立即显示没有数据的页面。可以显示丢失数据的加载状态。
+- 然后，在客户端获取数据并在准备就绪时显示它。
 
-This approach works well for user dashboard pages, for example. Because a dashboard is a private, user-specific page, SEO is not relevant and the page doesn’t need to be pre-rendered. The data is frequently updated, which requires request-time data fetching.
+这种方法适用于 user dashboard pages。因为 dashboard 是一个私有的、特定于用户的页面，与 SEO 无关，页面也不需要预渲染。数据经常更新，这需要 request-time data fetching。
 
-## Pre-rendering
+## Pre-rendering(预渲染)
 
-If the page must be pre-rendered, Next.js supports [2 forms of pre-rendering](https://nextjs.org/docs/basic-features/data-fetching):  
-**Static Generation (SSG)** and **Server-side Rendering (SSR)**.
+如果页面必须预渲染，Next.js 支持 [2种形式的预渲染](https://nextjs.org/docs/basic-features/data-fetching)：  
+**Static Generation (SSG)** 和 **Server-side Rendering (SSR)**。
 
-Together with SWR, you can pre-render the page for SEO, and also have features such as caching, revalidation, focus tracking, refetching on interval in the client side.
+用 SWR，你可以为了 SEO 预渲染页面，并且还有诸如缓存、重新验证、聚焦跟踪、在客户端间隔重新获取等功能。
 
-You can pass the pre-fetched data as the initial value to the `initialData` option. For example together with [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation):
+你可以将预获取的数据作为初始值传递给 `initialData` 选项。比如和 [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation) 一起：
 
 ```jsx
 export async function getStaticProps() {
-  // `getStaticProps` is invoked on the server-side,
-  // so this `fetcher` function will be executed on the server-side.
+  // 在服务器端调用 `getStaticProps`，
+  // 所以 `fetcher` 函数将在服务端执行。
   const posts = await fetcher('/api/posts')
   return { props: { posts } }
 }
 
 function Props (props) {
-  // Here the `fetcher` function will be executed on the client-side.
+  // 这里的 `fetcher` 函数将在客户端执行。
   const { data } = useSWR('/api/posts', fetcher, { initialData: props.posts })
 
   // ...
 }
 ```
 
-The page is still pre-rendered. That means it's SEO friendly, can be cached and accessed very fast. But after hydration, it’s also fully powered by SWR in the client side. 
-Which means the data can be dynamic and update itself over time and user interactions.
+页面仍然是预渲染的的。这意味着它对 SEO 是友好的，可以高速缓存和访问。但 after hydration，它在客户端还是完全由 SWR 控制。这意味着数据可以是动态的，并且可以根据时间和用户交互而自动更新。
 
 <Callout emoji="💡">
-  In the example above, <code>fetcher</code> is used to load the data from both client and server, 
-  and it needs to support both environments. But this is not a requirement. You can use different ways to load data from server or client.
+  在上面的示例中，<code>fetcher</code> 用来从客户端和服务端加载数据，它需要同时支持2种环境。但这不是必需的。你可以使用不同的方法从服务端或客户端加载数据。
 </Callout>
