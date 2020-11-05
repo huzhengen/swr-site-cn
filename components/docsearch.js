@@ -27,7 +27,9 @@ export default function () {
       window.docsearch({
         apiKey: '247dd86c8ddbbbe6d7a2d4adf4f3a68a',
         indexName: 'vercel_swr',
-        inputSelector: 'input#algolia-doc-search'
+        inputSelector: 'input#algolia-doc-search',
+        algoliaOptions: { 'facetFilters': ["tags:cn"] },
+        debug: false // Set debug to true if you want to inspect the dropdown
       })
     }
   }, [])
@@ -37,7 +39,7 @@ export default function () {
       id="algolia-doc-search"
       className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
       type="search"
-      placeholder='Search ("/" to focus)'
+      placeholder='搜索 ("/" to focus)'
       ref={input}
     />
   </div>
