@@ -50,18 +50,18 @@ const { data, error } = useSWR('/api/user', fetcher)
   注意：<code>data</code> 和 <code>error</code> 可以同时存在。所以 UI 可以在知道即将到来的请求失败时显示现有数据。 
 </Callout>
 
-[这里](/examples/error-handling) 有一个示例。
+[这里](/examples/error-handling)有一个示例。
 
 ## Error Retry(错误重试)
 
-在出现错误时 SWR 使用 [指数退避算法](https://en.wikipedia.org/wiki/Exponential_backoff) 重试请求。该算法允许应用从错误中快速恢复，而不会浪费资源频繁地重试。
+在出现错误时 SWR 使用[指数退避算法](https://en.wikipedia.org/wiki/Exponential_backoff)重发请求。该算法允许应用从错误中快速恢复，而不会浪费资源频繁地重试。
 
-你还可以通过 [onErrorRetry](/docs/options#options) 选项覆盖该 behavior：
+你还可以通过 [onErrorRetry](/docs/options#options) 选项覆盖该行为：
 
 ```js
 useSWR('/api/user', fetcher, {
   onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-    // 不在 404 时重试。
+    // 404 时不重试。
     if (error.status === 404) return
 
     // 特定的 key 时不重试。
@@ -78,11 +78,11 @@ useSWR('/api/user', fetcher, {
 
 这个回调让你可以灵活的根据各种条件重试。你也可以通过设置 `shouldRetryOnError: false` 来禁用它。
 
-也可以通过 [全局配置](/docs/global-configuration) context 来提供它。
+也可以通过[全局配置](/docs/global-configuration) context 来提供它。
 
 ## Global Error Report(全局错误报告)
 
-你总是可以响应性的在组件内部获取 `error` 对象。但如果你想要全局处理错误，通知 UI 显示一个 [toast](https://vercel.com/design/toast) 或者一个 [snackbar](https://material.io/components/snackbars)，或在某处报告它，比如 [Sentry](https://sentry.io)，可以用 [`onError`](/docs/options#options) 事件：
+你总是可以响应性的在组件内部得到 `error` 对象。但如果你想要全局处理错误，通知 UI 显示一个 [toast](https://vercel.com/design/toast) 或者一个 [snackbar](https://material.io/components/snackbars)，或在某处报告它，比如 [Sentry](https://sentry.io)，可以用 [`onError`](/docs/options#options) 事件：
 
 ```jsx
 <SWRConfig value={{

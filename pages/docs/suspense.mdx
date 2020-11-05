@@ -32,7 +32,7 @@ function App () {
 }
 ```
 
-在 Suspense 模式下，`data` 总是获取响应（因此你无需检查它是否是 `undefined`）。但如果发生错误，则需要使用 [错误边界](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors) 来捕获它：
+在 Suspense 模式下，`data` 总是请求响应（因此你无需检查它是否是 `undefined`）。但如果发生错误，则需要使用 [错误边界](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors) 来捕获它：
 
 ```jsx
 <ErrorBoundary fallback={<h2>Could not fetch posts.</h2>}>
@@ -44,7 +44,7 @@ function App () {
 
 ---
 
-### 注意：使用条件获取
+### 注意：使用条件请求
 
 通常，当启用 `suspense` 时，可以确保 `data` 在渲染时始终是准备就绪的：
 
@@ -57,7 +57,7 @@ function Profile () {
 }
 ```
 
-但是，当它与条件获取或依赖获取一起使用时，如果请求被**暂停**，`data` 将会是 `undefined`：
+但是，当它与条件请求或依赖请求一起使用时，如果请求被**暂停**，`data` 将会是 `undefined`：
 
 ```jsx
 function Profile () {

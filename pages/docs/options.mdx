@@ -9,7 +9,7 @@ const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 ## Parameters(参数)
 
 - `key`: 请求的唯一 key string (或者是 function / array / null) [(高级用法)](/docs/conditional-fetching)  
-- `fetcher`: (_可选_) 一个获取数据的 Promise 返回函数 [(详情)](/docs/data-fetching) 
+- `fetcher`: (_可选_) 一个请求数据的 Promise 返回函数 [(详情)](/docs/data-fetching) 
 - `options`: (_可选_) 该 SWR hook 的选项对象
 
 ## Return Values(返回值)
@@ -22,12 +22,12 @@ const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 
 - `suspense = false`: 启用 React Suspense 模式 [(详情)](/docs/suspense)
 - `fetcher = window.fetch(url).then(res => res.json())`: fetcher 函数
-- `initialData`: 要返回的初始数据 (注意: 是每个 hook) [(详情)](/docs/with-nextjs)
+- `initialData`: 要返回的初始数据 (注意：是每个 hook) [(详情)](/docs/with-nextjs)
 - `revalidateOnMount`: 在挂载组件时启用或禁用自动重新验证 (默认情况下，当没有设置 initialData 时，在挂载时进行重新验证，使用该 flag 强制行为)
-- `revalidateOnFocus = true`: window focus 时自动重新验证 [(详情)](/docs/revalidation)
+- `revalidateOnFocus = true`: 窗口聚焦时自动重新验证 [(详情)](/docs/revalidation)
 - `revalidateOnReconnect = true`: 浏览器恢复网络连接时自动重新验证 (通过 `navigator.onLine`) [(详情)](/docs/revalidation)
 - `refreshInterval = 0`: 轮询间隔 (默认 disabled) [(详情)](/docs/revalidation)
-- `refreshWhenHidden = false`: window 不可见时进行轮询 (如果启用了 `refreshInterval`)
+- `refreshWhenHidden = false`: 窗口不可见时进行轮询 (如果启用了 `refreshInterval`)
 - `refreshWhenOffline = false`: 浏览器离线时轮询 (由 `navigator.onLine` 确定)
 - `shouldRetryOnError = true`: fetcher 有错误时重试
 - `dedupingInterval = 2000`: 在该时间段内使用相同的 key 进行重复数据删除请求

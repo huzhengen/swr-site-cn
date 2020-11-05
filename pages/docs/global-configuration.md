@@ -1,6 +1,6 @@
 # 全局配置
 
-The context `SWRConfig` 可以为所有的 SWR hooks 提供全局配置 ([options](/docs/options))。
+The context `SWRConfig` 可以为所有的 SWR hook 提供全局配置 ([选项](/docs/options))。
 
 ```jsx
 <SWRConfig value={options}>
@@ -8,7 +8,7 @@ The context `SWRConfig` 可以为所有的 SWR hooks 提供全局配置 ([option
 </SWRConfig>
 ```
 
-在该示例中，所有的 SWR hooks 都将使用提供的相同的 fetcher 来加载 JSON 数据，默认每3秒刷新一次：
+在该示例中，所有的 SWR hook 都将使用提供的相同的 fetcher 来加载 JSON 数据，默认每3秒刷新一次：
 
 ```jsx
 import useSWR, { SWRConfig } from 'swr'
