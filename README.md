@@ -1,8 +1,8 @@
-# [SWR website](https://swr.vercel.app)
+# [SWR 中文网站](https://swr-cn.vercel.app)
 
-The official website for [SWR](https://github.com/vercel/swr).
+[SWR](https://github.com/vercel/swr) 的中文网站。
 
-To contribute, just clone this repository and run the following command to start the local dev server:
+若想贡献翻译，请 clone 这个仓库，然后运行下面的命令启动本地开发服务器：
 
 ```bash
 yarn
