@@ -1,20 +1,19 @@
-# Performance
+# 性能
 
-SWR provides critical functionality in all kinds of web apps, so **performance** is a top priority. 
+SWR 在各种 web 应用中提供了关键功能，因此**性能**是重中之重。
 
-SWR’s built-in **caching** and **[deduplication](/advanced/performance#deduplication)** skips unnecessary network requests, but 
-the performance of the `useSWR` hook itself still matters. In a complex app, there could be hundreds of `useSWR` calls in a single page render.
+SWR 内置的**缓存**和**[重复数据删除](/advanced/performance#deduplication)**会跳过不必要的网络请求，但 `useSWR` hook 本身的性能仍然很重要。在一个复杂的应用中，单个页面渲染可能会调用数百个 `useSWR`。
 
-SWR ensures that your app has:
-- _no unnecessary requests_
-- _no unnecessary re-renders_
-- _no unnecessary code imported_
+SWR 确保你的应用具有：
+- _没有不必要的请求_
+- _没有不必要的重新渲染_
+- _没有不必要的代码导入_
 
-without any code changes from you.
+无需你更改任何代码。
 
-## Deduplication
+## Deduplication(重复数据删除)
 
-It’s very common to reuse SWR hooks in your app. For example, an app that renders the current user’s avatar 5 times:
+在应用中重用 SWR hooks 非常常见。例如，一个应用渲染5次当前用户的头像：
 
 ```jsx
 function useUser () {
@@ -41,23 +40,21 @@ function App () {
 }
 ```
 
-Each `<Avatar>` component has a `useSWR` hook inside. Since they have the same SWR key and are rendered at the almost same time, **only 1 network request will be made**.
+每个 `<Avatar>` 组件内部都有一个 `useSWR` hook。由于它们具有相同的 SWR key，并且几乎同时渲染，因此**只会发送1个网络请求**。
 
-You can reuse your data hooks (like `useUser` in the example above) everywhere, without worrying about performance or duplicated requests.
+你可以在任何地方重用数据 hooks（比如上面示例中的 `useUser`），而不用担心性能或重复请求。
 
-There is also a [`dedupingInterval` option](/docs/options) for overriding the default deduplication interval.
+还有一个 [`dedupingInterval` 选项](/docs/options) 用于覆盖默认的重复数据删除间隔。
 
-## Deep Comparison
+## Deep Comparison(深度比较)
 
-SWR **deep compares** data changes by default. If the `data` value isn’t changed, a re-render will not be triggered.
+SWR 默认**深度比较**数据更改。如果 `data` 值没有改变，则不会触发重新渲染。
 
-You can also customize the comparison function via the [`compare` option](/docs/options) if you want to change the behavior. 
-For example, some API responses return a server timestamp that you might want to exclude from the data diff.
+如果你还想更改的话，可以通过 [`compare` 选项](/docs/options)自定义比较函数。比如，某些 API 响应返回一个服务器时间戳，你可能想从数据 diff 中排除它。
 
-## Dependency Collection
+## Dependency Collection(依赖收集)
 
-`useSWR` returns 3 **stateful** values: `data`, `error` and `isValidating`, each one can be updated independently.
-For example, if we print those values within a full data-fetching lifecycle, it will be something like this:
+`useSWR` 返回3个**有状态的**值：`data`、`error` 和 `isValidating`，每个都可以独立更新。例如，如果我们在一个完整的数据请求生命周期中打印这些值，则将如下所示：
 
 ```jsx
 function App () {
@@ -67,20 +64,20 @@ function App () {
 }
 ```
 
-In the worst case (the first request failed, then the retry was successful), you will see 5 lines of logs:
+在最坏的情况下（第一个请求失败，然后重试成功），你将看到5行日志：
 
 ```js
 // console.log(data, error, isValidating)
-undefined undefined false // => hydration / initial render
-undefined undefined true  // => start fetching
-undefined Error false     // => end fetching, got an error
-undefined Error true      // => start retrying
-Data undefined false      // => end retrying, get the data
+undefined undefined false // => hydration / 初始渲染
+undefined undefined true  // => 开始 fetching
+undefined Error false     // => 结束 fetching，出现错误
+undefined Error true      // => 开始重试
+Data undefined false      // => 重试结束，得到数据
 ```
 
-The state changes make sense. But that also means our component **rendered 5 times**.
+状态的改变是有道理的。但这也意味着组件**渲染了5次**。
 
-If we change our component to only use `data`:
+如果我们将组件更改为只使用 `data`：
 
 ```jsx
 function App () {
@@ -90,21 +87,18 @@ function App () {
 }
 ```
 
-The magic happens — there are only **2 re-renders** now:
+神奇的事情发生了 - 现在只有**2次重新渲染**：
 
 ```js
 // console.log(data)
-undefined // => hydration / initial render
-Data      // => end retrying, get the data
+undefined // => hydration / 初始渲染
+Data      // => 重试结束，得到数据
 ```
 
-The exact same process has happened internally, there was an error from the first request, then we got the data from the retry.
-However, **SWR only updates the states that are used by the component**, which is only `data` now. 
+内部发生了完全相同的过程，第一个请求出现了错误，然后我们重试得到了数据。但是，**SWR 只更新了组件使用的状态**，即：`data`。 
 
-If you are not always using all these 3 states, you are already benefitting from this feature. 
-At [Vercel](https://vercel.com), this optimization results in ~60% fewer re-renders.
+如果你不是总使用这3种状态，那么你已经从这个特性中获益了。在 [Vercel](https://vercel.com)，这个优化减少了约60%的重新渲染。
 
 ## Tree Shaking
 
-The SWR package is [tree-shakeable](https://webpack.js.org/guides/tree-shaking) and side-effect free. 
-That means if you are only importing the core `useSWR` API, unused APIs like `useSWRInfinite` won't be bundled in your application.
+SWR 是 [tree-shakeable](https://webpack.js.org/guides/tree-shaking) 且没有副作用。这意味着如果你只导入核心的 `useSWR` API，像 `useSWRInfinite` 这样的未使用的 API 将不会绑定到你的应用中。
