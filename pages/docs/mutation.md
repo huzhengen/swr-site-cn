@@ -71,14 +71,22 @@ mutate('/api/user', updateUser(newUser)) // `updateUser` 是请求的 Promise，
 
 ## Mutate Based on Current Data(根据当前数据更改)
 
-在很多情况下，你从 API 接收了单个值，然后希望更新它们的列表。
+有时，你想基于当前数据更新部分你的数据。
 
 使用 `mutate`，你可以传递一个异步函数，该函数将接收当前缓存的值（如果有的话），并返回一个 updated document。
 
 ```jsx
-mutate('/api/users', async users => {
-  const user = await fetcher('/api/users/1')
-  return [user, ...users.slice(1)]
+mutate('/api/todos', async todos => {
+  // let's update the todo with ID `1` to be completed,
+  // this API returns the updated data
+  const updatedTodo = await fetch('/api/todos/1', {
+    method: 'PATCH'
+    body: JSON.stringify({ completed: true })
+  })
+
+  // filter the list, and return it with the updated item
+  const filteredTodos = todos.filter(todo => todo.id !== '1')
+  return [...filteredTodos, updatedTodo]
 })
 ```
 

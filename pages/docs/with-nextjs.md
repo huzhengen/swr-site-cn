@@ -1,4 +1,4 @@
-import Callout from 'components/callout'
+import Callout from 'nextra-theme-docs/callout'
 
 # 配合 Next.js 使用
 
