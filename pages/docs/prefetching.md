@@ -14,9 +14,7 @@
 
 ## Programmatically Prefetch(编程方式预请求)
 
-有时，你想有条件地预加载资源。比如当用户 [hovering](https://github.com/GoogleChromeLabs/quicklink) [a](https://github.com/guess-js/guess) [link](https://instant.page) 时预加载数据。最直观的方法就是用全局的 [mutate](/docs/mutation) 预请求和设置缓存：
-最初始的方法是有一个函数来重新获取和设置缓存通过全局[mutate
-最有创意的方法是具有通过全局[mutate]重新获取和设置缓存的功能。
+有时，你想有条件地预加载资源。比如当用户 [hovering](https://github.com/GoogleChromeLabs/quicklink) [a](https://github.com/guess-js/guess) [link](https://instant.page) 时预加载数据。最直观的方法就是用全局的 [mutate](/docs/mutation) 重新请求和设置缓存：
 
 另一个选择是有条件地预请求数据。你可以通过 [mutate](/docs/mutation) 来重新请求以及设置缓存：
 

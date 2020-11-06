@@ -77,14 +77,14 @@ mutate('/api/user', updateUser(newUser)) // `updateUser` 是请求的 Promise，
 
 ```jsx
 mutate('/api/todos', async todos => {
-  // let's update the todo with ID `1` to be completed,
-  // this API returns the updated data
+  // 把 ID 为 1 的更新为 completed，
+  // 该 API 返回更新后的数据
   const updatedTodo = await fetch('/api/todos/1', {
     method: 'PATCH'
     body: JSON.stringify({ completed: true })
   })
 
-  // filter the list, and return it with the updated item
+  // 筛选列表，返回更新后的 item
   const filteredTodos = todos.filter(todo => todo.id !== '1')
   return [...filteredTodos, updatedTodo]
 })
