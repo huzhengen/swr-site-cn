@@ -30,7 +30,7 @@ export async function getStaticProps() {
   return { props: { posts } }
 }
 
-function Props (props) {
+function Posts (props) {
   // 这里的 `fetcher` 函数将在客户端执行。
   const { data } = useSWR('/api/posts', fetcher, { initialData: props.posts })
 
