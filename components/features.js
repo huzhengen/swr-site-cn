@@ -9,10 +9,10 @@ const Feature = ({ text, icon }) => (
 
 export default () => (
   <div>
-    <p className="text-lg mb-2 text-gray-600 md:text-xl">用于请求数据的 React Hooks 库</p>
+    <p className="text-lg mb-2 text-gray-600 md:text-xl">React Hooks library for data fetching</p>
     <div className={styles.features}>
       <Feature
-        text="轻量的"
+        text="Lightweight"
         icon={
           <svg
             viewBox="0 0 24 24"
@@ -31,7 +31,7 @@ export default () => (
         }
       />
       <Feature
-        text="后端不可知的"
+        text="Backend Agnostic"
         icon={
           <svg
             viewBox="0 0 24 24"
@@ -55,7 +55,7 @@ export default () => (
         }
       />
       <Feature
-        text="实时的"
+        text="Realtime"
         icon={
           <svg
             width="24"
@@ -73,7 +73,7 @@ export default () => (
         }
       />
       <Feature
-        text="面向 JAMstack 的"
+        text="Jamstack Oriented"
         icon={
           <svg
             width="24"
@@ -110,7 +110,7 @@ export default () => (
         }
       />
       <Feature
-        text="远程 + 本地"
+        text="Remote + Local"
         icon={
           <svg
             width="24"
