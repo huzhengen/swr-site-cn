@@ -73,7 +73,7 @@ export default () => (
         }
       />
       <Feature
-        text="面向 JAMstack 的"
+        text="面向 Jamstack 的"
         icon={
           <svg
             width="24"
