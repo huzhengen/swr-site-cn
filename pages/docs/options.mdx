@@ -40,6 +40,7 @@ const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 - `onError(err, key, config)`: 请求返回错误时的回调函数
 - `onErrorRetry(err, key, config, revalidate, revalidateOps)`: 错误重试的处理函数
 - `compare(a, b)`: 比较函数，用来检测返回的数据何时已更改，以防止伪造的重新渲染。默认情况下使用 [dequal](https://github.com/lukeed/dequal)。
+- `isPaused()`: 用于检测是否暂停重新验证的函数，当返回 `true` 时将忽略所请求的数据和错误。默认返回 `false`。
 
 <Callout emoji="💡">
   网络较慢 (2G, {'<='} 70Kbps) 时， 默认情况下 <code>errorRetryInterval</code> 是 10s， {' '}

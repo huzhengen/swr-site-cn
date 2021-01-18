@@ -59,7 +59,7 @@ function Profile () {
 }
 ```
 
-点击上面示例中的按钮将发送一个 POST 请求来修改远程数据，本地更新客户端数据并尝试请求最新的数据（重新验证）。
+点击上面示例中的按钮将在本地更新客户端数据，并发送一个 POST 请求来修改远程数据，尝试请求最新数据（重新验证）。
 
 但是很多 POST API 只会直接返回更新后的数据，所以我们不需要再次重新验证。下面这个示例展示了 “本地更改 - 请求 - 更新”的用法：
 
@@ -80,7 +80,7 @@ mutate('/api/todos', async todos => {
   // 把 ID 为 1 的更新为 completed，
   // 该 API 返回更新后的数据
   const updatedTodo = await fetch('/api/todos/1', {
-    method: 'PATCH'
+    method: 'PATCH',
     body: JSON.stringify({ completed: true })
   })
 
