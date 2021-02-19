@@ -128,7 +128,7 @@ function App () {
   }
 
   return <div>
-    {list.map((data, i) => 
+    {list.map((data, i) =>
       <div key={i}>{
         data.map(item => <div key={item.id}>{item.name}</div>)
       }</div>)}
@@ -206,6 +206,10 @@ const { data, error, isValidating, mutate, size, setSize } = useSWRInfinite(
   - `initialSize = 1`: 最初应加载的页面数量
   - `revalidateAll = false`: 始终尝试重新验证所有页面
   - `persistSize = false`: 当第一页的 key 发生变化时，不将 page size（或者 `initialSize` 如果设置了该参数）重置为1
+
+<Callout>
+  注意，不允许在生命周期中更改 `initialSize` 选项。
+</Callout>
 
 #### 返回值
 

@@ -2,7 +2,7 @@ import Callout from 'nextra-theme-docs/callout'
 
 # Suspense
 
-<Callout emoji="🚨" background="bg-red-200">
+<Callout emoji="🚨" background="bg-red-200 dark:text-gray-800">
   目前 Suspense 是 React 的一个 <strong>实验</strong> 特性。这些 API 可能会有重大改变，并且在成为 React 一部分之前不会有任何警告。
   <br/>
   <a href="https://reactjs.org/docs/concurrent-mode-suspense.html" target="_blank" rel="noopener">了解更多</a>
@@ -31,6 +31,10 @@ function App () {
   )
 }
 ```
+
+<Callout>
+  注意，不允许在生命周期中更改 `suspense` 选项。
+</Callout>
 
 在 Suspense 模式下，`data` 总是请求响应（因此你无需检查它是否是 `undefined`）。但如果发生错误，则需要使用 [错误边界](https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors) 来捕获它：
 
